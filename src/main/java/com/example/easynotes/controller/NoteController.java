@@ -6,6 +6,7 @@ import com.example.easynotes.dto.NoteRequestDTO;
 import com.example.easynotes.dto.NoteResponseWithAuthorDTO;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.service.INoteService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,5 +63,10 @@ public class NoteController {
     @GetMapping("threeMostThanked/{year}")
     public List<NoteResponseWithCantLikesDTO> getNotesWithLikesByYear(@PathVariable(value = "year") int year){
         return noteService.getThreeMoreThankedNotes(year);
+    }
+
+    @GetMapping("/tipoNota/{id}")
+    public ResponseEntity<?> getTipoNota(@PathVariable(name = "id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(noteService.getTipoNota(id));
     }
 }

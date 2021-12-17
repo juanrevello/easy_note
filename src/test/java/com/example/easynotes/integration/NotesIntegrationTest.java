@@ -81,4 +81,25 @@ public class NotesIntegrationTest {
                         content().contentType(MediaType.APPLICATION_JSON)
                 );
     }
+
+    @Test
+    public void testCorrectTipoNota() throws Exception {
+        // Arrange
+        Long id = 1L;
+
+        var noteFirst   = new NoteResponseWithCantLikesDTO(1L, 5);
+
+        //String expected = writer.writeValueAsString(noteFirst);
+
+        String expected = "Normal";
+
+        // Act & Assert
+        mockMvc.perform( get("/api/note/tipoNota/" + id) )
+                .andDo(print())
+                .andExpectAll(
+                        status().isOk(),
+                        content().string(expected)
+                        //content().contentType(MediaType.APPLICATION_JSON)
+                );
+    }
 }

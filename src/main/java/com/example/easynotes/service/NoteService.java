@@ -1,11 +1,13 @@
 package com.example.easynotes.service;
 
 import com.example.easynotes.dto.*;
+import com.example.easynotes.exception.ExceptionEasyNotesHandler;
 import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.model.Thank;
 import com.example.easynotes.model.User;
 import com.example.easynotes.repository.NoteRepository;
+import com.example.easynotes.repository.ThankRepository;
 import com.example.easynotes.repository.UserRepository;
 import com.example.easynotes.utils.ListMapper;
 import org.modelmapper.*;
@@ -24,14 +26,19 @@ public class NoteService implements INoteService {
     ModelMapper modelMapper;
     ListMapper listMapper;
 
+    ThankRepository thankRepository;
+
     @Autowired
     NoteService(NoteRepository noteRepository,
                 UserRepository userRepository,
+                ThankRepository thankRepository,
                 ModelMapper modelMapper,
                 ListMapper listMapper) {
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
         this.listMapper = listMapper;
+
+        this.thankRepository = thankRepository;
 
         //Converter used to retrieve cant of user's notes
         Converter<Set<Note>, Integer> notesToCantNotesConverter = new AbstractConverter<Set<Note>, Integer>() {
@@ -158,6 +165,26 @@ public class NoteService implements INoteService {
                 }
                 )
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getTipoNota(Long id) {
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", id));
+
+        List<Thank> thanks = thankRepository.findByNoteId(id);
+
+        Integer countThanks = thanks.size();
+
+        if (countThanks>10){
+            return "Destacada";
+        } else {
+            if (countThanks>=5){
+                return "DeInteres";
+            } else {
+                return "Normal";
+            }
+        }
     }
 }
 
