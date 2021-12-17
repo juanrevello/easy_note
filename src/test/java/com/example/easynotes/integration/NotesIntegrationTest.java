@@ -81,4 +81,21 @@ public class NotesIntegrationTest {
                         content().contentType(MediaType.APPLICATION_JSON)
                 );
     }
+
+    @Test
+    public void testCorrectMostusercategory() throws Exception {
+        // Arrange
+        Long userId = 1L;
+        //fecha para payload
+        String expected = "PublicadorSemanal";
+
+
+        // Act & Assert
+        mockMvc.perform( get("/api/user/categoriaUsuario/" + userId) )
+                .andDo(print())
+                .andExpectAll(
+                        status().isOk(),
+                        content().string(expected)
+                );
+    }
 }
