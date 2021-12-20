@@ -84,6 +84,13 @@ public class UserController {
         return userService.updateUser(userId, userRequestDTO);
     }
 
+    @PutMapping("/{id}/revised/{noteId}/status/{revisedStatus}")
+    public ResponseEntity<?> updateRevisionStatus(@PathVariable(value = "id") Long userId,
+                                                  @PathVariable(value = "noteId") Long noteId,
+                                                  @PathVariable(value = "revisedStatus") String revisedStatus){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateRevisionStatus(userId, noteId, revisedStatus));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
         userService.deleteUser(userId);
@@ -94,6 +101,7 @@ public class UserController {
     public ResponseEntity<?> getCategoriaUsuario(@PathVariable(value = "id") Long userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getCategoriaUser(userId));
     }
+
     //Metodos de Jean para HQL
 
 //    @GetMapping("like/{lastName}/{firstName}")

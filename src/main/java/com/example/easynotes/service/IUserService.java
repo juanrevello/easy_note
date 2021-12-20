@@ -44,6 +44,8 @@ public interface IUserService {
 
     String getCategoriaUser(Long id);
 
+    String updateRevisionStatus(Long userId, Long noteId, String revisedStatus);
+
     //  List<UserResponseDTO> getUsersLastNameLikeAndFirstNameLike(String lastName, String firstName);
 
 }

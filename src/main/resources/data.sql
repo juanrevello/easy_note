@@ -67,3 +67,38 @@ VALUES
     (37,6,'2021-12-06'),
     (37,7,'2021-12-06');
 
+INSERT INTO `note_revision`
+(`revised_note_id`,`revisor_id`,`revision_status`)
+VALUES
+    (0,2,'Aprobado'),
+    (0,3,'Aprobado'),
+    (0,4,'Pendiente'),
+    (0,5,'Pendiente'),
+    (0,6,'Aprobado'),
+    (0,7,'Aprobado'),
+    (0,8,'Desaprobado'),
+    (1,2,'Desaprobado'),
+    (1,3,'Aprobado'),
+    (1,4,'Pendiente'),
+    (1,5,'Pendiente'),
+    (1,6,'Aprobado'),
+    (1,7,'Pendiente'),
+    (14,2,'Desaprobado'),
+    (14,3,'Aprobado'),
+    (14,4,'Pendiente'),
+    (14,5,'Aprobado'),
+    (29,2,'Pendiente'),
+    (29,4,'Aprobado'),
+    (29,3,'Aprobado'),
+    (29,5,'Pendiente'),
+    (29,6,'Desaprobado'),
+    (30,2,'Aprobado'),
+    (30,3,'Desaprobado'),
+    (30,4,'Pendiente'),
+    (37,2,'Aprobado'),
+    (37,3,'Desaprobado'),
+    (37,4,'Aprobado'),
+    (37,5,'Desaprobado'),
+    (37,6,'Aprobado'),
+    (37,7,'Pendiente');
+

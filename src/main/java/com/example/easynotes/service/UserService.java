@@ -3,6 +3,7 @@ package com.example.easynotes.service;
 import com.example.easynotes.dto.*;
 import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
+import com.example.easynotes.model.NoteRevision;
 import com.example.easynotes.model.Thank;
 import com.example.easynotes.model.User;
 import com.example.easynotes.repository.NoteRepository;
@@ -222,5 +223,13 @@ public class UserService implements IUserService {
             }
 
         }
+    }
+
+    @Override
+    public String updateRevisionStatus(Long userId, Long noteId, String revisedStatus) {
+//        NoteRevision noteRevision = userRepository.findNoteRevisionById(noteId, userId);
+//        noteRevision.setRevisionStatus(revisedStatus);
+        userRepository.updateNoteRevision(noteId, userId, revisedStatus);
+        return revisedStatus;
     }
 }

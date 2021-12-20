@@ -1,11 +1,14 @@
 package com.example.easynotes.repository;
 
 import com.example.easynotes.model.Note;
+import com.example.easynotes.model.NoteRevision;
 import com.example.easynotes.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -44,5 +47,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "where note.createdAt >= :date" )
     List<User> findUserByNoteCreatedAtLessOrEqualDate(@Param("date") Date date);
 
-    
+    @Query( "select noteRevision " +
+            "from NoteRevision noteRevision " +
+            "where noteRevision.id.noteId = :noteId " +
+            "and noteRevision.id.userId = :userId ")
+    NoteRevision findNoteRevisionById(@Param("noteId") Long noteId, @Param("userId") Long userId);
+
+    @Modifying
+    @Transactional
+    @Query("update NoteRevision noteRevision set noteRevision.revisionStatus = :revisionStatus " +
+            "where noteRevision.id.noteId = :noteId " +
+            "and noteRevision.id.userId = :userId ")
+    void updateNoteRevision(@Param("noteId") Long noteId, @Param("userId") Long userId, @Param("revisionStatus") String revisionStatus);
+
 }

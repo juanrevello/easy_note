@@ -28,8 +28,11 @@ public class Note {
 
     private String content;
 
-    @ManyToMany(mappedBy = "revisedNotes")
-    private Set<User> revisers = new HashSet<>();
+//    @ManyToMany(mappedBy = "revisedNotes")
+//    private Set<User> revisers = new HashSet<>();
+
+    @OneToMany(mappedBy = "note")
+    Set<NoteRevision> noteRevisers;
 
     @OneToMany(mappedBy = "note")
     Set<Thank> thanks;
