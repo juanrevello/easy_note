@@ -1,5 +1,5 @@
 INSERT INTO `user`
-    (`id`,`first_name`,`last_name`)
+(`id`,`first_name`,`last_name`)
 VALUES
     (1, 'user1','last1'),
     (2, 'user2','last2'),
@@ -12,7 +12,7 @@ VALUES
 
 
 INSERT INTO `note`
-    (`id`,`content`,`created_at`,`title`,`updated_at`,`author_id`)
+(`id`,`content`,`created_at`,`title`,`updated_at`,`author_id`)
 VALUES
     (0,'Si el tiempo no se me pasa más cuando se corta la luz1','2021-12-17','Que hacemos1?','2021-12-16',1),
     (1,'Si el tiempo no se me pasa más cuando se corta la luz2','2021-12-09','Que hacemos2?','2021-12-17',1),
@@ -23,7 +23,7 @@ VALUES
 
 
 INSERT INTO `thank`
-    (`note_id`,`user_id`,`created_at`)
+(`note_id`,`user_id`,`created_at`)
 VALUES
     (0,2,'2019-12-16'),
     (0,3,'2019-12-26'),

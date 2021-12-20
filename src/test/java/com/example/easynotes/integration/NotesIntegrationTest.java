@@ -89,11 +89,11 @@ public class NotesIntegrationTest {
         // Arrange
         Long id = 1L;
 
-        var noteFirst   = new NoteResponseWithCantLikesDTO(1L, 5);
+        //var noteFirst   = new NoteResponseWithCantLikesDTO(1L, 5);
 
         //String expected = writer.writeValueAsString(noteFirst);
 
-        String expected = "Normal";
+        String expected = "DeInteres";
 
         // Act & Assert
         mockMvc.perform( get("/api/note/tipoNota/" + id) )
