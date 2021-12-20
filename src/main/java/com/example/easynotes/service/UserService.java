@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -194,5 +196,31 @@ public class UserService implements IUserService {
 
         User user = query.getResultList().get(1);
         return modelMapper.map(user, UserResponseDTO.class);
+    }
+
+    @Override
+    public String getCategoriaUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() ->new ResourceNotFoundException("User", "id", id));
+        LocalDate today = LocalDate.now();
+        List<Note> note2=  user.getAuthorNotes().stream().filter(p-> p.getCreatedAt().equals(today.minusDays(2))).collect(Collectors.toList());
+        List<Note> note1=  user.getAuthorNotes().stream().filter(p-> p.getCreatedAt().equals(today.minusDays(1))).collect(Collectors.toList());
+        List<Note> note=  user.getAuthorNotes().stream().filter(p-> p.getCreatedAt().equals(today)).collect(Collectors.toList());
+
+        List<Note> note2s=  user.getAuthorNotes().stream().filter(p-> p.getCreatedAt().isAfter(today.minusDays(7))).collect(Collectors.toList());
+        List<Note> note1s=  user.getAuthorNotes().stream().filter(p-> p.getCreatedAt().isAfter(today.minusDays(14)) && p.getCreatedAt().isBefore(today.minusDays(7))).collect(Collectors.toList());
+        List<Note> notes=  user.getAuthorNotes().stream().filter(p-> p.getCreatedAt().isAfter(today.minusDays(21)) && p.getCreatedAt().isBefore(today.minusDays(14))).collect(Collectors.toList());
+
+        if(note2.size()>0 && note1.size()>0 && note.size()>0){
+            return "PublicadorDiario";
+        }
+        else{
+            if(note2s.size()>0 && note1s.size()>0 && notes.size()>0){
+                return "PublicadorSemanal";
+            }
+            else{
+                return "Publicador";
+            }
+
+        }
     }
 }
